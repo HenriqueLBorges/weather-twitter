@@ -316,7 +316,7 @@ function getMessage(data) {
             textTomorrow = "";
             break;
     }
-    var string = "Bom dia bbs, hoje a máxima é de " + todayHigh
+    var string = "123Bom dia bbs, hoje a máxima é de " + todayHigh
         + "ºC e a mínima de " + todayLow + "ºC. " + textToday + " Já para amanhã a máxima é de "
         + tomorrowHigh + "ºC e a mínima de " + tomorrowLow + "ºC. " + textTomorrow;
 
