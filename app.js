@@ -180,10 +180,10 @@ function getMessage(data) {
             textTomorrow = "Tornado amanhã pessoal! 'Rock you like a hurricane'.";
             break;
         case 3: //severe thunderstorms
-            textTomorrow = "Dilúvio agendado para amanhã...";
+            textTomorrow = "Dilúvio agendado pra amanhã...";
             break;
         case 4: //thunderstorms
-            textTomorrow = "Raios e trovões para amanhã.";
+            textTomorrow = "Raios e trovões pra amanhã.";
             break;
         case 5: //mixed rain and snow
             textTomorrow = "Chuva e neve em São Paulo, será?";
@@ -195,25 +195,25 @@ function getMessage(data) {
             textTomorrow = "Neve e granizo, mas em São Paulo nem neva...";
             break;
         case 8: //freezing drizzle
-            textTomorrow = "Pra Amanhã temos aquela garoa gelada, dia de netflix.";
+            textTomorrow = "Pra amanhã temos aquela garoa gelada, dia de netflix.";
             break;
         case 9: //drizzle
-            textTomorrow = "Aquela garoa chata Amanhã, afinal, São Paulo é conhecida por isso né.";
+            textTomorrow = "Aquela garoa chata amanhã, afinal, São Paulo é conhecida por isso né.";
             break;
         case 10: //freezing rain
-            textTomorrow = "Levem guarda-chuva e um casaco Amanhã galera. A chuva vai ser gelada.";
+            textTomorrow = "Levem guarda-chuva e um casaco amanhã galera. A chuva vai ser gelada.";
             break;
         case 11: //showers
-            textTomorrow = "Uma leve chuva pra Amanhã, arrisque-se sobre levar guarda-chuva ou não.";
+            textTomorrow = "Uma leve chuva pra amanhã, arrisque-se sobre levar guarda-chuva ou não.";
             break;
         case 12: //showers
-            textTomorrow = "Um pouquinho de neve pra Amanhã. Novidade em São Paulo.";
+            textTomorrow = "Um pouquinho de neve pra amanhã. Novidade em São Paulo.";
             break;
         case 13: //snow flurries
-            textTomorrow = "Flocos de neve pra Amanhã.";
+            textTomorrow = "Flocos de neve pra amanhã.";
             break;
         case 14: //light snow showers
-            textTomorrow = "Talvez tenhamos um pouco de neve pra Amanhã.";
+            textTomorrow = "Talvez tenhamos um pouco de neve pra amanhã.";
             break;
         case 15: //blowing snow
             textTomorrow = "";
@@ -225,7 +225,7 @@ function getMessage(data) {
             textTomorrow = "";
             break;
         case 18: //sleet
-            textTomorrow = "Granizo para amanhã.";
+            textTomorrow = "Granizo pra amanhã.";
             break;
         case 19: //dust
             textTomorrow = "";
@@ -246,7 +246,7 @@ function getMessage(data) {
             textTomorrow = "Vai ventar amanhã, soltem pipa!";
             break;
         case 25: //cold
-            textTomorrow = "Para amanhã, winter is coming galera!";
+            textTomorrow = "pra amanhã, winter is coming galera!";
             break;
         case 26: //cloudy
             textTomorrow = "Amanhã vai ser mais nublado que silent hill 1.";
@@ -320,7 +320,7 @@ function getMessage(data) {
     }
 
     return "Bom dia bbs, hoje a máxima é de " + todayHigh
-        + "ºC e a mínima de " + todayLow + "ºC. " + textToday + " Já para amanhã a máxima é de "
+        + "ºC e a mínima de " + todayLow + "ºC. " + textToday + " Já pra amanhã a máxima é de "
         + tomorrowHigh + "ºC e a mínima de " + tomorrowLow + "ºC. " + textTomorrow + " #clima " + " #sãoPaulo";
 }
 function getWeather(location, callbackFunction) {
