@@ -19,6 +19,7 @@ function getMessage(data) {
     tomorrowLow = data[1].low;
 
     switch (parseInt(data[0].code)) {
+        //Today
         case 0: //tornado
             textToday = "A previsão pra hoje é de tornado, cuidado com os tubarões.";
             break;
@@ -29,7 +30,7 @@ function getMessage(data) {
             textToday = "Tornado hoje pessoal! 'Rock you like a hurricane'.";
             break;
         case 3: //severe thunderstorms
-            textToday = "Raios e trovões! Se escondam em casa.";
+            textToday = "Vai chover canivete!";
             break;
         case 4: //thunderstorms
             textToday = "Hoje temos grandes chances de tempestade.";
@@ -68,7 +69,7 @@ function getMessage(data) {
             textToday = "";
             break;
         case 16: //snow
-            textToday = "";
+            textToday = "Hoje teremos neve, será?";
             break;
         case 17: //hail
             textToday = "";
@@ -89,16 +90,16 @@ function getMessage(data) {
             textToday = "";
             break;
         case 23: //blustery
-            textToday = "";
+            textToday = "Vai ventar pra cacete, se preparem.";
             break;
         case 24: //windy
             textToday = "Vai ventar hoje, soltem pipa.";
             break;
         case 25: //cold
-            textToday = "Hoje vai fazer frio amigos.";
+            textToday = "Pegue seu bombojaco e sua touca porque hoje vai ser frio";
             break;
         case 26: //cloudy
-            textToday = "Nublado hoje, vai ser um dia cinza.";
+            textToday = "Nublado hoje, mais um dia na cidade cinza.";
             break;
         case 27: //mostly cloudy (night)
             textToday = "Durante a noite vai ser bem nublado.";
@@ -113,7 +114,7 @@ function getMessage(data) {
             textToday = "Hoje vai ser meio nublado durante o dia.";
             break;
         case 31: //clear (night)
-            textToday = "Bom tempo durante a noite.";
+            textToday = "Bom tempo durante a noite, dá pra fazer aquele happy hour.";
             break;
         case 32: //sunny
             textToday = "Dia ensolarado, partiu praia!";
@@ -149,7 +150,7 @@ function getMessage(data) {
             textToday = "";
             break;
         case 43: //heavy snow
-            textToday = "Aparentemente vai nevar muito hoje!";
+            textToday = "Neve pra cachorro hoje!";
             break;
         case 44: //partly cloudy
             textToday = "Hoje vai ser parcialmente nublado.";
@@ -168,167 +169,167 @@ function getMessage(data) {
             break;
     }
     switch (parseInt(data[1].code)) {
+        //Tomorrow
         case 0: //tornado
-            textTomorroway = "A previsão pra amanhã é de tornado, cuidado com os tubarões.";
+            textTomorrow = "A previsão pra Amanhã é de tornado, se escondam nos bunkers.";
             break;
         case 1: //tropical storm
-            textTomorroway = "Pelo visto temos uma tempestade tropical rolando amanhã, cuidado galera.";
+            textTomorrow = "Pelo visto temos uma tempestade tropical rolando Amanhã, cuidado galera.";
             break;
         case 2: //hurricane
-            textTomorroway = "Tornado amanhã pessoal! 'Rock you like a hurricane'.";
+            textTomorrow = "Tornado amanhã pessoal! 'Rock you like a hurricane'.";
             break;
         case 3: //severe thunderstorms
-            textTomorroway = "Raios e trovões! Se escondam em casa.";
+            textTomorrow = "Dilúvio agendado para amanhã...";
             break;
         case 4: //thunderstorms
-            textTomorroway = "amanhã temos grandes chances de tempestade.";
+            textTomorrow = "Raios e trovões para amanhã.";
             break;
         case 5: //mixed rain and snow
-            textTomorroway = "Chuva e neve em São Paulo, será?";
+            textTomorrow = "Chuva e neve em São Paulo, será?";
             break;
         case 6: //mixed rain and sleet
-            textTomorroway = "Chuva com granizo, nem saíam de casa amanhã galera.";
+            textTomorrow = "Chuva com granizo, nem saíam de casa amanhã galera.";
             break;
         case 7: //mixed snow and sleet
-            textTomorroway = "Neve e granizo, mas em São Paulo nem neva...";
+            textTomorrow = "Neve e granizo, mas em São Paulo nem neva...";
             break;
         case 8: //freezing drizzle
-            textTomorroway = "Pra amanhã temos aquela garoa gelada.";
+            textTomorrow = "Pra Amanhã temos aquela garoa gelada, dia de netflix.";
             break;
         case 9: //drizzle
-            textTomorroway = "Aquela garoa chata amanhã, afinal, São Paulo é conhecida por isso né.";
+            textTomorrow = "Aquela garoa chata Amanhã, afinal, São Paulo é conhecida por isso né.";
             break;
         case 10: //freezing rain
-            textTomorroway = "Levem guarda-chuva e um casaco amanhã galera. A chuva vai ser gelada.";
+            textTomorrow = "Levem guarda-chuva e um casaco Amanhã galera. A chuva vai ser gelada.";
             break;
         case 11: //showers
-            textTomorroway = "Uma leve chuva pra amanhã, arrisque-se sobre levar guarda-chuva ou não.";
+            textTomorrow = "Uma leve chuva pra Amanhã, arrisque-se sobre levar guarda-chuva ou não.";
             break;
         case 12: //showers
-            textTomorroway = "Um pouquinho de neve pra amanhã. Novidade em São Paulo.";
+            textTomorrow = "Um pouquinho de neve pra Amanhã. Novidade em São Paulo.";
             break;
         case 13: //snow flurries
-            textTomorroway = "Flocos de neve pra amanhã.";
+            textTomorrow = "Flocos de neve pra Amanhã.";
             break;
         case 14: //light snow showers
-            textTomorroway = "Talvez tenhamos um pouco de neve pra amanhã.";
+            textTomorrow = "Talvez tenhamos um pouco de neve pra Amanhã.";
             break;
         case 15: //blowing snow
-            textTomorroway = "";
+            textTomorrow = "";
             break;
         case 16: //snow
-            textTomorroway = "";
+            textTomorrow = "";
             break;
         case 17: //hail
-            textTomorroway = "";
+            textTomorrow = "";
             break;
         case 18: //sleet
-            textTomorroway = "";
+            textTomorrow = "Granizo para amanhã.";
             break;
         case 19: //dust
-            textTomorroway = "";
+            textTomorrow = "";
             break;
         case 20: //foggy
-            textTomorroway = "";
+            textTomorrow = "Dia bem nublado amanhã.";
             break;
         case 21: //haze
-            textTomorroway = "";
+            textTomorrow = "";
             break;
         case 22: //smoky
-            textTomorroway = "";
+            textTomorrow = "";
             break;
         case 23: //blustery
-            textTomorroway = "";
+            textTomorrow = "Vai ventar pra cacete, se preparem.";
             break;
         case 24: //windy
-            textTomorroway = "Vai ventar amanhã, soltem pipa.";
+            textTomorrow = "Vai ventar amanhã, soltem pipa!";
             break;
         case 25: //cold
-            textTomorroway = "amanhã vai fazer frio amigos.";
+            textTomorrow = "Para amanhã, winter is coming galera!";
             break;
         case 26: //cloudy
-            textTomorroway = "Nublado amanhã, vai ser um dia cinza.";
+            textTomorrow = "Amanhã vai ser mais nublado que silent hill 1.";
             break;
         case 27: //mostly cloudy (night)
-            textTomorroway = "Durante a noite vai ser bem nublado.";
+            textTomorrow = "Durante a noite vai ser bem nublado.";
             break;
         case 28: //mostly cloudy (day)
-            textTomorroway = "Durante o dia vai ser bem nublado";
+            textTomorrow = "Durante o dia vai ser bem nublado";
             break;
         case 29: //partly cloudy (night)
-            textTomorroway = "amanhã vai ser meio nublado durante a noite.";
+            textTomorrow = "Amanhã vai ser meio nublado durante a noite.";
             break;
         case 30: //partly cloudy (day)
-            textTomorroway = "amanhã vai ser meio nublado durante o dia.";
+            textTomorrow = "Amanhã vai ser meio nublado durante o dia.";
             break;
         case 31: //clear (night)
-            textTomorroway = "Bom tempo durante a noite.";
+            textTomorrow = "Bom tempo durante a noite, já chama a bb pro date.";
             break;
         case 32: //sunny
-            textTomorroway = "Dia ensolarado, partiu praia!";
+            textTomorrow = "Dia ensolarado amanhã, partiu praia!";
             break;
         case 33: //fair (night)
-            textTomorroway = "amanhã teremos uma noite agradável.";
+            textTomorrow = "Amanhã teremos uma noite agradável.";
             break;
         case 34: //fair (day)
-            textTomorroway = "amanhã teremos um dia agradável.";
+            textTomorrow = "Amanhã teremos um dia agradável.";
             break;
         case 35: //mixed rain and hail
-            textTomorroway = "";
+            textTomorrow = "";
             break;
         case 36: //hot
-            textTomorroway = "Dia quente amanhã gente.";
+            textTomorrow = "Dia quente amanhã gente, ótimo pra andar de transporte público.";
             break;
         case 37: //isolated thunderstorms
-            textTomorroway = "Tempestades isoladas amanhã.";
+            textTomorrow = "Tempestades isoladas amanhã.";
             break;
         case 38: //scattered thunderstorms
-            textTomorroway = "Várias tempestades espalhadas amanhã.";
+            textTomorrow = "Várias tempestades espalhadas amanhã.";
             break;
         case 39: //scattered thunderstorms
-            textTomorroway = "Várias tempestades espalhadas amanhã.";
+            textTomorrow = "Várias tempestades espalhadas amanhã.";
             break;
         case 40: //scattered showers
-            textTomorroway = "";
+            textTomorrow = "";
             break;
         case 41: //heavy snow
-            textTomorroway = "Aparentemente vai nevar muito amanhã!";
+            textTomorrow = "Era do gelo amanhã!";
             break;
         case 42: //scattered snow showers
-            textTomorroway = "";
+            textTomorrow = "";
             break;
         case 43: //heavy snow
-            textTomorroway = "Aparentemente vai nevar muito amanhã!";
+            textTomorrow = "Era do gelo amanhã!";
             break;
         case 44: //partly cloudy
-            textTomorroway = "amanhã vai ser parcialmente nublado.";
+            textTomorrow = "Amanhã vai ser parcialmente nublado.";
             break;
         case 45: //thundershowers
-            textTomorroway = "";
+            textTomorrow = "Amanhã temos chances de breves tempestades.";
             break;
         case 46: //snow showers
-            textTomorroway = "";
+            textTomorrow = "Talvez neve rapidamente amanhã (duvido).";
             break;
         case 47: //isolated thundershowers
-            textTomorroway = "";
+            textTomorrow = "Amanhã teremos breves tempestades isoladas";
             break;
         case 3200: // not available
-            textTomorroway = "";
+            textTomorrow = "";
             break;
     }
-    var string = "Bom dia bbs, hoje a máxima é de " + todayHigh
-        + "ºC e a mínima de " + todayLow + "ºC. " + textToday + " Já para amanhã a máxima é de "
-        + tomorrowHigh + "ºC e a mínima de " + tomorrowLow + "ºC. " + textTomorrow;
 
-    return string;
+    return "Bom dia bbs, hoje a máxima é de " + todayHigh
+        + "ºC e a mínima de " + todayLow + "ºC. " + textToday + " Já para amanhã a máxima é de "
+        + tomorrowHigh + "ºC e a mínima de " + tomorrowLow + "ºC. " + textTomorrow + " #clima " + " #sãoPaulo";
 }
 function getWeather(location, callbackFunction) {
     location = '"' + location + '"';
 
-    // Creates a query
+    //Creates a query
     var query = new yql('select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=' + location + ') and u="c"');
 
-    // Executes the query
+    //Executes the query
     query.exec(function (err, data) {
         var location = data.query.results.channel.location;
         var condition = data.query.results.channel.item.condition;
@@ -337,20 +338,21 @@ function getWeather(location, callbackFunction) {
     });
 }
 
-var job = new CronJob('00 00 05 * * 1-7', function () {
-    // Runs every day at 05:30:00 AM.
+var job = new CronJob('00 06 21 * * 1-7', function () {
+    //Runs every day at 05:30:00 AM
     getWeather("são paulo, br", function (data) {
         client.tweet(getMessage(data));
     });
 
 },
     function () {
-        /* This function is executed when the job stops */
+        //This function is executed when the job stops
         console.log("Cron job stopped!")
     },
-    true, /* Start the job right now */
-    'America/Sao_Paulo' /* Time zone of this job. */
+    true, //Start the job right now
+    'America/Sao_Paulo' //Time zone of this job.
 );
+
 //Verifies if the cron job started.
 if (job.running)
     console.log("Job started.");
