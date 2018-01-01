@@ -337,7 +337,7 @@ function getWeather(location, callbackFunction) {
     });
 }
 
-var job = new CronJob('00 30 05 * * 1-7', function () {
+var job = new CronJob('00 57 05 * * 1-7', function () {
     // Runs every day at 05:30:00 AM.
     getWeather("são paulo, br", function (data) {
         client.tweet(getMessage(data));
