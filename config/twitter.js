@@ -7,11 +7,15 @@ var client = new Twitter({
     access_token_secret: process.env.access_token_secret
 });
 
-client.tweet = client.post('statuses/update', { status: 'Post test.' }, function (error, tweet, response) {
-    //if (error) console.log("error");
-    //else {
-        //console.log("tweet = ", tweet);  // Tweet body. 
-        //console.log("response");  // Raw response object. 
-    //}
-});
+client.tweet = function (tweet) {
+    console.log("tweet =", tweet);
+    client.post('statuses/update', { status: tweet }, function (error, tweet, response) {
+        if (error) console.log("error", error);
+        else {
+            //console.log("tweet = ", tweet);  // Tweet body. 
+            //console.log("response");  // Raw response object. 
+            console.log("Tweet sent.");
+        }
+    });
+}
 module.exports = client;
