@@ -355,4 +355,8 @@ var job = new CronJob('00 00 05 * * 1-7', function () {
 if (job.running)
     console.log("Job started.");
 else
-    console.warn("Job didn't started.")
+    console.warn("Job didn't started.");
+
+app.listen(server_port, server_host, function () {
+    console.log("Online.");
+});
