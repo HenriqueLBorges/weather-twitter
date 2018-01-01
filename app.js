@@ -316,7 +316,7 @@ function getMessage(data) {
             textTomorrow = "";
             break;
     }
-    var string = "1234Bom dia bbs, hoje a máxima é de " + todayHigh
+    var string = "12345Bom dia bbs, hoje a máxima é de " + todayHigh
         + "ºC e a mínima de " + todayLow + "ºC. " + textToday + " Já para amanhã a máxima é de "
         + tomorrowHigh + "ºC e a mínima de " + tomorrowLow + "ºC. " + textTomorrow;
 
@@ -337,7 +337,7 @@ function getWeather(location, callbackFunction) {
     });
 }
 
-var job = new CronJob('00 57 05 * * 1-7', function () {
+var job = new CronJob('00 04 06 * * 1-7', function () {
     // Runs every day at 05:30:00 AM.
     getWeather("são paulo, br", function (data) {
         client.tweet(getMessage(data));
