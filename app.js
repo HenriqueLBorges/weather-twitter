@@ -25,7 +25,7 @@ function getMessage(result, callbackFunction) {
             db.findTweet(parseInt(data[0].code), "tomorrow", function (tomorrowResults) {
                 var j = Math.floor(Math.random() * ((tomorrowResults.length - 1) - 0 + 1)) + 0; //gets a random tweet about this code
 
-                callbackFunction("hoje a temperadura tem " + todayHigh
+                callbackFunction("hoje a temperadura é " + todayHigh
                     + "ºC/" + todayLow + "ºC. " + todayResults[i].text + " Já pra amanhã temos "
                     + tomorrowHigh + "ºC/" + tomorrowLow + "ºC. " + tomorrowResults[j].text + " #clima #sãoPaulo");
             });
