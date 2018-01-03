@@ -141,10 +141,3 @@ else
 app.listen(server_port, server_host, function () {
     console.log("Application online.");
 });
-
-getWeather("são paulo, br", function (data) {
-    getMessage(data, function (result) {
-        if (typeof result !== "undefined")
-            client.tweet("Boa noite bbs, " + result);
-    });
-});
