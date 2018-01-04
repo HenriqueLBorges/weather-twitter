@@ -1,3 +1,5 @@
+import { retry } from "../../../.cache/typescript/2.6/node_modules/@types/async";
+
 var app = require("./config/server.js");
 var client = require("./config/twitter.js");
 var yql = require("yql");
@@ -124,8 +126,10 @@ var retryJob = new CronJob('00 00 * * * 1-7', function () {
     //Runs every hour when after a job fails
     getWeather("são paulo, br", function (data) {
         getMessage(data, function (result) {
-            if (typeof result !== "undefined")
+            if (typeof result !== "undefined"){
                 client.tweet("E aí bbs, " + result);
+                retryJob.stop(); //Stops the Cron Job retry after tweets
+            }
             else console.warn("Error on getMessage()");
         });
     });
