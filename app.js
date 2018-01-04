@@ -87,7 +87,7 @@ var afternoonJob = new CronJob('00 00 13 * * 1-7', function () {
     getWeather("são paulo, br", function (data) {
         getMessage(data, function (result) {
             if (typeof result !== "undefined")
-                client.tweet("Bom tarde bbs, " + result);
+                client.tweet("Boa tarde bbs, " + result);
             else console.warn("Error on getMessage()");
         });
     });
