@@ -1,5 +1,3 @@
-import { retry } from "../../../.cache/typescript/2.6/node_modules/@types/async";
-
 var app = require("./config/server.js");
 var client = require("./config/twitter.js");
 var yql = require("yql");
