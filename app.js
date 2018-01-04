@@ -10,38 +10,40 @@ var server_port = process.env.YOUR_PORT || process.env.PORT || 3000;
 var server_host = process.env.YOUR_HOST || '0.0.0.0';
 
 function getMessage(result, callbackFunction) {
-    if (typeof result !== "undefined" && typeof result.query.results.channel.item.forecast !== "undefined") {
-        var data = result.query.results.channel.item.forecast;
-        var todayHigh, todayLow, tomorrowHigh, tomorrowLow;
+    try {
+        if (typeof result !== "undefined" && typeof result.query.results.channel.item.forecast !== "undefined") {
+            var data = result.query.results.channel.item.forecast;
+            var todayHigh, todayLow, tomorrowHigh, tomorrowLow;
 
-        todayHigh = data[0].high;
-        todayLow = data[0].low;
-        tomorrowHigh = data[1].high;
-        tomorrowLow = data[1].low;
+            todayHigh = data[0].high;
+            todayLow = data[0].low;
+            tomorrowHigh = data[1].high;
+            tomorrowLow = data[1].low;
 
-        db.findTweet(parseInt(data[0].code), "today", function (todayResults) {
-            var i = Math.floor(Math.random() * ((todayResults.length - 1) - 0 + 1)) + 0; //gets a random tweet about this code
+            db.findTweet(parseInt(data[0].code), "today", function (todayResults) {
+                var i = Math.floor(Math.random() * ((todayResults.length - 1) - 0 + 1)) + 0; //gets a random tweet about this code
 
-            db.findTweet(parseInt(data[0].code), "tomorrow", function (tomorrowResults) {
-                var j = Math.floor(Math.random() * ((tomorrowResults.length - 1) - 0 + 1)) + 0; //gets a random tweet about this code
+                db.findTweet(parseInt(data[0].code), "tomorrow", function (tomorrowResults) {
+                    var j = Math.floor(Math.random() * ((tomorrowResults.length - 1) - 0 + 1)) + 0; //gets a random tweet about this code
 
-                callbackFunction("hoje a temperadura será " + todayHigh
-                    + "ºC/" + todayLow + "ºC. " + todayResults[i].text + " Já pra amanhã temos "
-                    + tomorrowHigh + "ºC/" + tomorrowLow + "ºC. " + tomorrowResults[j].text + " #clima #sãoPaulo");
+                    callbackFunction("hoje a temperadura será " + todayHigh
+                        + "ºC/" + todayLow + "ºC. " + todayResults[i].text + " Já pra amanhã temos "
+                        + tomorrowHigh + "ºC/" + tomorrowLow + "ºC. " + tomorrowResults[j].text + " #clima #sãoPaulo");
+                });
             });
-        });
+        }
     }
-    else {
+    catch (e) {
         console.warn("ERROR on Yahoo Weather API response.");
-        console.log("Response = ", result);
+        console.log("Response = ", e);
         //Starts a jobs to keep trying to get results from the API
         retryJob.start();
 
         //Verifies if the cron job started.
         if (retryJob.running)
-            console.log("retryJob started.");
+            console.log("Cron job - retry started.");
         else
-            console.warn("retryJob didn't started.");
+            console.warn("Cron job - retry didn't started.");
 
         return;
     }
@@ -130,7 +132,7 @@ var retryJob = new CronJob('00 00 * * * 1-7', function () {
 },
     function () {
         //This function is executed when the job stops
-        console.log("retryJob stopped.");
+        console.log("Cron job - retry stopped.");
     },
     false, //Start the job right now
     'America/Sao_Paulo' //Time zone of this job.
