@@ -60,10 +60,14 @@ function getWeather(location, callbackFunction) {
 }
 
 var morningJob = new CronJob('00 00 05 * * 1-7', function () {
-    //Runs every day at 05:30:00 AM
+    //Runs every day at 05:00:00
+    console.log("Executing Cron job - morning");
     getWeather("são paulo, br", function (data) {
-        if (typeof result !== "undefined")
-            client.tweet("Bom dia bbs, " + result);
+        getMessage(data, function (result) {
+            if (typeof result !== "undefined")
+                client.tweet("Bom dia bbs, " + result);
+            else console.warn("Error on getMessage()");
+        });
     });
 
 },
@@ -76,10 +80,14 @@ var morningJob = new CronJob('00 00 05 * * 1-7', function () {
 );
 
 var afternoonJob = new CronJob('00 00 13 * * 1-7', function () {
-    //Runs every day at 05:30:00 AM
+    //Runs every day at 13:00:00
+    console.log("Executing Cron job - morning");
     getWeather("são paulo, br", function (data) {
-        if (typeof result !== "undefined")
-            client.tweet("Bom tarde bbs, " + result);
+        getMessage(data, function (result) {
+            if (typeof result !== "undefined")
+                client.tweet("Bom tarde bbs, " + result);
+            else console.warn("Error on getMessage()");
+        });
     });
 
 },
@@ -92,10 +100,13 @@ var afternoonJob = new CronJob('00 00 13 * * 1-7', function () {
 );
 
 var nightJob = new CronJob('00 00 18 * * 1-7', function () {
-    //Runs every day at 05:30:00 AM
+    //Runs every day at 18:30:00
     getWeather("são paulo, br", function (data) {
-        if (typeof result !== "undefined")
-            client.tweet("Bom noite bbs, " + result);
+        getMessage(data, function (result) {
+            if (typeof result !== "undefined")
+                client.tweet("Bom noite bbs, " + result);
+            else console.warn("Error on getMessage()");
+        });
     });
 
 },
@@ -108,10 +119,13 @@ var nightJob = new CronJob('00 00 18 * * 1-7', function () {
 );
 
 var retryJob = new CronJob('00 00 * * * 1-7', function () {
-    //Runs every day at 05:30:00 AM
+    //Runs every hour when after a job fails
     getWeather("são paulo, br", function (data) {
-        if (typeof result !== "undefined")
-            client.tweet("E aí bbs, " + result);
+        getMessage(data, function (result) {
+            if (typeof result !== "undefined")
+                client.tweet("E aí bbs, " + result);
+            else console.warn("Error on getMessage()");
+        });
     });
 },
     function () {
