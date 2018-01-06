@@ -9,6 +9,7 @@ var moment = require("moment");
 var server_port = process.env.YOUR_PORT || process.env.PORT || 3000;
 //Set the available host
 var server_host = process.env.YOUR_HOST || '0.0.0.0';
+
 function newReply(result, callbackFunction) {
     try {
         if (typeof result !== "undefined" && typeof result.query.results.channel.item.forecast !== "undefined") {
@@ -33,6 +34,7 @@ function newReply(result, callbackFunction) {
         return;
     }
 }
+
 function getMessage(result, callbackFunction) {
     try {
         if (typeof result !== "undefined" && typeof result.query.results.channel.item.forecast !== "undefined") {
@@ -73,6 +75,7 @@ function getMessage(result, callbackFunction) {
     }
 
 }
+
 function getWeather(location, callbackFunction) {
     location = '"' + location + '"';
 
@@ -84,6 +87,66 @@ function getWeather(location, callbackFunction) {
         callbackFunction(result);
     });
 }
+
+var mentionsJob = new CronJob('00 00-30 * * * 1-7', function () {
+    //Runs every day at 05:00:00
+    console.log("Executing Cron job - mentions");
+    client.getMentions(function (result) {
+        let date = new Date();
+        date.setDate(date.getDate());
+        date = moment(date).format('YYYY-MM-DD HH:mm:ss');
+
+        result.map((item, i) => {
+            let createAt = moment(item.created_at).format('YYYY-MM-DD HH:mm:ss');
+            var ms = moment(date).diff(createAt);
+            var difference = moment.duration(ms);
+            //Only gets the last 30 minutes tweets.
+            if (difference.hours() < 1 && difference.minutes() <= 30) {
+                let copying = false;
+                let local = {
+                    text: "",
+                    opened: false,
+                    valid: false
+                };
+                for (i = 0; i < item.text.length; i++) {
+                    //Copies the local from the tweet.
+                    if (item.text[i] == '"') {
+                        copying = !copying;
+                        if (!local.opened)//Verifies if it was already copying
+                            local.opened = !local.opened;
+                        else {
+                            local.valid = !local.valid;
+                            break;
+                        }
+                    }
+                    else if (copying)
+                        local.text += item.text[i];
+                }
+                if (local.valid) {
+                    let username = "@" + item.user.screen_name;
+                    getWeather(local.text, function (data) {
+                        newReply(data, function (result) {
+                            if (typeof result !== "undefined") {
+                                let tweet = username + " " + result;
+                                //client.newReply(tweet, item.id_str);
+                                client.tweet(tweet);
+                            }
+                            else console.warn("Error on newReply()");
+                        });
+                    });
+                }
+            }
+        });
+    });
+
+},
+    function () {
+        //This function is executed when the job stops
+        console.log("Cron job - mentions stopped.")
+    },
+    true, //Start the job right now
+    'America/Sao_Paulo' //Time zone of this job.
+);
 
 var morningJob = new CronJob('00 00 05 * * 1-7', function () {
     //Runs every day at 05:00:00
@@ -165,21 +228,30 @@ var retryJob = new CronJob('00 00 * * * 1-7', function () {
     'America/Sao_Paulo' //Time zone of this job.
 );
 
+//Verifies if the mentions job started.
+if (morningJob.running)
+    console.log("Cron job - mentions job started.");
+else
+    console.warn("Cron job - mentions job didn't started.");
+
 //Verifies if the morning cron job started.
 if (morningJob.running)
     console.log("Cron job - morning started.");
 else
     console.warn("Cron job - morning didn't started.");
+
 //Verifies if the afternoon cron job started.
 if (afternoonJob.running)
     console.log("Cron job - afternoon started.");
 else
     console.warn("Cron job - afternoon didn't started.");
+
 //Verifies if the night cron job started.
 if (nightJob.running)
     console.log("Cron job - night started.");
 else
     console.warn("Cron job - night didn't started.");
+
 
 app.listen(server_port, server_host, function () {
     console.log("Application online.");
