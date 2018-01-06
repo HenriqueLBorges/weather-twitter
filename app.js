@@ -111,7 +111,7 @@ var mentionsJob = new CronJob('00 00-30 * * * 1-7', function () {
                 };
                 for (i = 0; i < item.text.length; i++) {
                     //Copies the local from the tweet.
-                    if (item.text[i] == '"') {
+                    if (item.text[i] == '"' || item.text[i] == '“' || item.text[i] == '”') {
                         copying = !copying;
                         if (!local.opened)//Verifies if it was already copying
                             local.opened = !local.opened;
