@@ -77,8 +77,9 @@ function getMessage(result, callbackFunction) {
 }
 
 function getWeather(location, callbackFunction) {
+    location = location.toLowerCase();
     location = '"' + location + '"';
-
+    console.log("getWeather location =", location);
     //Creates a query
     var query = new yql('select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=' + location + ') and u="c"');
 
