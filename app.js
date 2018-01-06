@@ -3,12 +3,36 @@ var client = require("./config/twitter.js");
 var yql = require("yql");
 var CronJob = require("cron").CronJob;
 var db = require("./config/database.js");
+var moment = require("moment");
 
 //Set the available port or 3000
 var server_port = process.env.YOUR_PORT || process.env.PORT || 3000;
 //Set the available host
 var server_host = process.env.YOUR_HOST || '0.0.0.0';
+function newReply(result, callbackFunction) {
+    try {
+        if (typeof result !== "undefined" && typeof result.query.results.channel.item.forecast !== "undefined") {
+            var data = result.query.results.channel.item.forecast;
+            var todayHigh, todayLow, tomorrowHigh, tomorrowLow;
+            var location = result.query.results.channel.location;
 
+            todayHigh = data[0].high;
+            todayLow = data[0].low;
+            tomorrowHigh = data[1].high;
+            tomorrowLow = data[1].low;
+
+            callbackFunction("Oi bb, a temperatura para " + location.city + " -" + location.region
+                + ", " + location.country + " hoje será " + todayHigh
+                + "ºC/" + todayLow + "ºC." + " Já pra amanhã a temperatura será "
+                + tomorrowHigh + "ºC/" + tomorrowLow + "ºC. Volte sempre haha :)" + " #clima #sãoPaulo");
+        }
+    }
+    catch (e) {
+        console.warn("ERROR on Yahoo Weather API response.");
+        console.log("Response = ", e);
+        return;
+    }
+}
 function getMessage(result, callbackFunction) {
     try {
         if (typeof result !== "undefined" && typeof result.query.results.channel.item.forecast !== "undefined") {
@@ -83,7 +107,7 @@ var morningJob = new CronJob('00 00 05 * * 1-7', function () {
 
 var afternoonJob = new CronJob('00 00 13 * * 1-7', function () {
     //Runs every day at 13:00:00
-    console.log("Executing Cron job - morning");
+    console.log("Executing Cron job - afternoon");
     getWeather("são paulo, br", function (data) {
         getMessage(data, function (result) {
             if (typeof result !== "undefined")
@@ -103,10 +127,11 @@ var afternoonJob = new CronJob('00 00 13 * * 1-7', function () {
 
 var nightJob = new CronJob('00 00 18 * * 1-7', function () {
     //Runs every day at 18:30:00
+    console.log("Executing Cron job - night");
     getWeather("são paulo, br", function (data) {
         getMessage(data, function (result) {
             if (typeof result !== "undefined")
-                client.tweet("Bom noite bbs, " + result);
+                client.tweet("Boa noite bbs, " + result);
             else console.warn("Error on getMessage()");
         });
     });
@@ -124,7 +149,7 @@ var retryJob = new CronJob('00 00 * * * 1-7', function () {
     //Runs every hour when after a job fails
     getWeather("são paulo, br", function (data) {
         getMessage(data, function (result) {
-            if (typeof result !== "undefined"){
+            if (typeof result !== "undefined") {
                 client.tweet("E aí bbs, " + result);
                 retryJob.stop(); //Stops the Cron Job retry after tweets
             }
@@ -158,4 +183,53 @@ else
 
 app.listen(server_port, server_host, function () {
     console.log("Application online.");
+});
+
+client.newStream();
+client.getMentions(function (result) {
+    let date = new Date();
+    date.setDate(date.getDate());
+    date = moment(date).format('YYYY-MM-DD HH:mm:ss');
+
+    result.map((item, i) => {
+        let createAt = moment(item.created_at).format('YYYY-MM-DD HH:mm:ss');
+        var ms = moment(date).diff(createAt);
+        var difference = moment.duration(ms);
+        //Only gets the last 30 minutes tweets.
+        if (difference.hours() < 1 && difference.minutes() <= 30) {
+            let copying = false;
+            let local = {
+                text: "",
+                opened: false,
+                valid: false
+            };
+            for (i = 0; i < item.text.length; i++) {
+                //Copies the local from the tweet.
+                if (item.text[i] == '"') {
+                    copying = !copying;
+                    if (!local.opened)//Verifies if it was already copying
+                        local.opened = !local.opened;
+                    else {
+                        local.valid = !local.valid;
+                        break;
+                    }
+                }
+                else if (copying)
+                    local.text += item.text[i];
+            }
+            if (local.valid) {
+                let username = "@" + item.user.screen_name;
+                getWeather(local.text, function (data) {
+                    newReply(data, function (result) {
+                        if (typeof result !== "undefined"){
+                            let tweet = username + " " + result;
+                            //client.newReply(tweet, item.id_str);
+                            client.tweet(tweet);
+                        }
+                        else console.warn("Error on newReply()");
+                    });
+                });
+            }
+        }
+    });
 });
