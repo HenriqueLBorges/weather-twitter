@@ -232,7 +232,7 @@ var retryJob = new CronJob('00 00 * * * 1-7', function () {
 if (morningJob.running)
     console.log("Cron job - mentions job started.");
 else
-    console.warn("Cron job - mentions job didn't started.");
+    console.warn("Cron job - mentions didn't started.");
 
 //Verifies if the morning cron job started.
 if (morningJob.running)
