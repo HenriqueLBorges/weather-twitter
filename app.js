@@ -89,7 +89,7 @@ function getWeather(location, callbackFunction) {
     });
 }
 
-var mentionsJob = new CronJob('00 00-30 * * * 1-7', function () {
+var mentionsJob = new CronJob('00 */30 * * * 1-7', function () {
     //Runs every day at 05:00:00
     console.log("Executing Cron job - mentions");
     client.getMentions(function (result) {
@@ -99,10 +99,17 @@ var mentionsJob = new CronJob('00 00-30 * * * 1-7', function () {
 
         result.map((item, i) => {
             let createAt = moment(item.created_at).format('YYYY-MM-DD HH:mm:ss');
-            var ms = moment(date).diff(createAt);
-            var difference = moment.duration(ms);
+            let ms = moment(date).diff(createAt);
+            let difference = moment.duration(ms);
+            let yearCreateAt = createAt.format("M");
+            let monthCreateAt = createAt.format("D");
+            let dayCreateAt = createAt.format("YYYY");
+            let yearDate = date.format("M");
+            let monthDate = date.format("D");
+            let dayDate = date.format("YYYY");
             //Only gets the last 30 minutes tweets.
-            if (difference.hours() < 1 && difference.minutes() <= 30) {
+            if ((yearCreateAt == yearDate && monthCreateAt == monthDate && dayCreateAt == dayDate) &&
+                (difference.hours() < 1 && difference.minutes() <= 30)) {
                 let copying = false;
                 let local = {
                     text: "",
