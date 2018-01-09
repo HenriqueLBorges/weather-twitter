@@ -89,16 +89,16 @@ function getWeather(location, callbackFunction) {
     });
 }
 
-var mentionsJob = new CronJob('* * * * * 1-7', function () {
-    //Runs every 30th minute //'00 */30 * * * 1-7'
+var mentionsJob = new CronJob("00 */30 * * * 1-7", function () {
+    //Runs every 30th minute
     console.log("Executing Cron job - mentions");
     client.getMentions(function (result) {
         let date = new Date();
         date.setDate(date.getDate());
-        date = moment(date).format('YYYY-MM-DD HH:mm:ss');
+        date = moment(date).format("YYYY-MM-DD HH:mm:ss");
 
         result.map((item, i) => {
-            let createAt = moment(item.created_at).format('YYYY-MM-DD HH:mm:ss');
+            let createAt = moment(item.created_at).format("YYYY-MM-DD HH:mm:ss");
             let ms = moment(date).diff(createAt);
             let difference = moment.duration(ms);
             let yearCreateAt = createAt.substring(0, 4);
@@ -153,10 +153,10 @@ var mentionsJob = new CronJob('* * * * * 1-7', function () {
         console.log("Cron job - mentions stopped.")
     },
     true, //Start the job right now
-    'America/Sao_Paulo' //Time zone of this job.
+    "America/Sao_Paulo" //Time zone of this job.
 );
 
-var morningJob = new CronJob('00 00 05 * * 1-7', function () {
+var morningJob = new CronJob("00 00 05 * * 1-7", function () {
     //Runs every day at 05:00:00
     console.log("Executing Cron job - morning");
     getWeather("são paulo, br", function (data) {
@@ -173,10 +173,10 @@ var morningJob = new CronJob('00 00 05 * * 1-7', function () {
         console.log("Cron job - morning stopped.")
     },
     true, //Start the job right now
-    'America/Sao_Paulo' //Time zone of this job.
+    "America/Sao_Paulo" //Time zone of this job.
 );
 
-var afternoonJob = new CronJob('00 00 13 * * 1-7', function () {
+var afternoonJob = new CronJob("00 00 13 * * 1-7", function () {
     //Runs every day at 13:00:00
     console.log("Executing Cron job - afternoon");
     getWeather("são paulo, br", function (data) {
@@ -193,10 +193,10 @@ var afternoonJob = new CronJob('00 00 13 * * 1-7', function () {
         console.log("Cron job - afternoon stopped.")
     },
     true, //Start the job right now
-    'America/Sao_Paulo' //Time zone of this job.
+    "America/Sao_Paulo" //Time zone of this job.
 );
 
-var nightJob = new CronJob('00 00 18 * * 1-7', function () {
+var nightJob = new CronJob("00 00 18 * * 1-7", function () {
     //Runs every day at 18:30:00
     console.log("Executing Cron job - night");
     getWeather("são paulo, br", function (data) {
@@ -213,10 +213,10 @@ var nightJob = new CronJob('00 00 18 * * 1-7', function () {
         console.log("Cron job - night stopped.")
     },
     true, //Start the job right now
-    'America/Sao_Paulo' //Time zone of this job.
+    "America/Sao_Paulo" //Time zone of this job.
 );
 
-var retryJob = new CronJob('00 00 * * * 1-7', function () {
+var retryJob = new CronJob("00 00 * * * 1-7", function () {
     //Runs every hour when after a job fails
     getWeather("são paulo, br", function (data) {
         getMessage(data, function (result) {
@@ -233,7 +233,7 @@ var retryJob = new CronJob('00 00 * * * 1-7', function () {
         console.log("Cron job - retry stopped.");
     },
     false, //Start the job right now
-    'America/Sao_Paulo' //Time zone of this job.
+    "America/Sao_Paulo" //Time zone of this job.
 );
 
 //Verifies if the mentions job started.
