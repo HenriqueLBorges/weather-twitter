@@ -89,8 +89,8 @@ function getWeather(location, callbackFunction) {
     });
 }
 
-var mentionsJob = new CronJob('00 */30 * * * 1-7', function () {
-    //Runs every day at 05:00:00
+var mentionsJob = new CronJob('* * * * * 1-7', function () {
+    //Runs every 30th minute //'00 */30 * * * 1-7'
     console.log("Executing Cron job - mentions");
     client.getMentions(function (result) {
         let date = new Date();
@@ -101,12 +101,12 @@ var mentionsJob = new CronJob('00 */30 * * * 1-7', function () {
             let createAt = moment(item.created_at).format('YYYY-MM-DD HH:mm:ss');
             let ms = moment(date).diff(createAt);
             let difference = moment.duration(ms);
-            let yearCreateAt = createAt.format("M");
-            let monthCreateAt = createAt.format("D");
-            let dayCreateAt = createAt.format("YYYY");
-            let yearDate = date.format("M");
-            let monthDate = date.format("D");
-            let dayDate = date.format("YYYY");
+            let yearCreateAt = createAt.substring(0, 4);
+            let monthCreateAt = createAt.substring(5, 7);
+            let dayCreateAt = createAt.substring(8, 10);
+            let yearDate = date.substring(0, 4);
+            let monthDate = date.substring(5, 7);
+            let dayDate = date.substring(8, 10);
             //Only gets the last 30 minutes tweets.
             if ((yearCreateAt == yearDate && monthCreateAt == monthDate && dayCreateAt == dayDate) &&
                 (difference.hours() < 1 && difference.minutes() <= 30)) {
